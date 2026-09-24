@@ -17,7 +17,7 @@ Every compiler needs to implement two methods:
 * `compile(value: string, lang: Language): string | InterpolateFunction` - Transforms a single translation text
 * `compileTranslations(translations: TranslationObject, lang: Language): InterpolatableTranslationObject` - Transforms all translations in a file
 
-One clarification about the word "preprocess": the compiler runs at runtime, after the loader has read the file. Your JSON files stay untouched. If you want to transform the files themselves before the app ships, that's a build step, not a compiler.
+The compiler runs at runtime, after the loader has read the file, so your JSON files stay untouched. If you want to transform the files themselves before the app ships, that's a build step, not a compiler.
 
 ## Where the Compiler Runs
 
@@ -76,7 +76,7 @@ export class UpperCaseCompiler extends TranslateCompiler {
 
 ## Returning an Interpolation Function
 
-`compile()` can also return a function. Return a function when your translation syntax has placeholders of its own that you want to substitute at render time, instead of relying on the default `{{ param }}` syntax.
+`compile()` can also return a function. Do that when your translation syntax has placeholders of its own that you want to substitute at render time, instead of relying on the default `{{ param }}` syntax.
 
 Say you prefer `%placeholder%` in your translation files:
 
@@ -236,7 +236,7 @@ bootstrapApplication(AppComponent, {
 }
 ```
 
-This is the compiler at work on values with their own placeholder syntax: `compile()` parses the MessageFormat pattern once per loaded language and returns an interpolation function, and the function resolves `{count}` on every render.
+Here `compile()` parses the MessageFormat pattern once per loaded language and returns an interpolation function, and the function resolves `{count}` on every render.
 
 ## When Should You Use a Custom Compiler?
 
